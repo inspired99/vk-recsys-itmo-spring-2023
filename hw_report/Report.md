@@ -7,7 +7,7 @@
 
 ## Результаты 
 
-Результаты A/B эксперимента лежат в папке [hw_report](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/hw_report/results_a_b.ipynb). Также привожу скрин [!](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/hw_report/a_b_test.png)
+Результаты A/B эксперимента лежат в папке [hw_report](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/hw_report/results_a_b.ipynb). Также привожу скрин [](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/hw_report/a_b_test.png)
 
 
 ## Детали 
