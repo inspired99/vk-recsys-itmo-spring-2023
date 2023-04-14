@@ -1,3 +1,4 @@
+import collections
 import json
 import logging
 import time
@@ -11,6 +12,7 @@ from gevent.pywsgi import WSGIServer
 
 from botify.data import DataLogger, Datum
 from botify.experiment import Experiments, Treatment
+from botify.recommenders.ugraded import Upgraded
 from botify.recommenders.random import Random
 from botify.recommenders.sticky_artist import StickyArtist
 from botify.recommenders.toppop import TopPop
@@ -49,7 +51,6 @@ parser = reqparse.RequestParser()
 parser.add_argument("track", type=int, location="json", required=True)
 parser.add_argument("time", type=float, location="json", required=True)
 
-
 class Hello(Resource):
     def get(self):
         return {
@@ -68,27 +69,19 @@ class Track(Resource):
 
 
 class NextTrack(Resource):
+    user_buffer = collections.defaultdict(list)
+
     def post(self, user: int):
         start = time.time()
 
         args = parser.parse_args()
 
-        # TODO Seminar 6 step 6: Wire RECOMMENDERS A/B experiment
-        treatment = Experiments.RECOMMENDERS.assign(user)
+        treatment = Experiments.UPGRADED.assign(user)
+
         if treatment == Treatment.T1:
-            recommender = StickyArtist(tracks_redis.connection, artists_redis.connection, catalog)
-        elif treatment == Treatment.T2:
-            recommender = TopPop(tracks_redis.connection, catalog.top_tracks[:100])
-        elif treatment == Treatment.T3:
-            recommender = Indexed(tracks_redis.connection, recommendations_ub_redis.connection, catalog)
-        elif treatment == Treatment.T4:
-            recommender = Indexed(tracks_redis.connection, recommendations_redis.connection, catalog)
-        elif treatment == Treatment.T5:
-            recommender = Contextual(tracks_redis.connection, catalog)
-        elif treatment == Treatment.T6:
-            recommender = Contextual(tracks_with_diverse_recs_redis.connection, catalog)
+            recommender = Upgraded(tracks_redis.connection, catalog, NextTrack.user_buffer)
         else:
-            recommender = Random(tracks_redis.connection)
+            recommender = Contextual(tracks_redis.connection, catalog)
 
         recommendation = recommender.recommend_next(user, args.track, args.time)
 

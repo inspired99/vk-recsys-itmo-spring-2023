@@ -15,6 +15,7 @@
   "REDIS_TRACKS_WITH_DIVERSE_RECS_PORT": 6379,
   "REDIS_TRACKS_WITH_DIVERSE_RECS_DB": 4,
   "TRACKS_CATALOG": "./data/tracks_with_recs.json",
+  "TRACKS_NEUMF" : "./data/my_recs_custom_neumf1.0.json",
   "TOP_TRACKS_CATALOG": "./data/top_tracks.json",
   "TRACKS_WITH_DIVERSE_RECS_CATALOG": "./data/recommendations_20_5.json",
   "RECOMMENDATIONS_UB_FILE_PATH": "./data/recommendations_ub.json",
