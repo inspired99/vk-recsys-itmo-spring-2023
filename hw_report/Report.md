@@ -4,14 +4,28 @@
 
 Мы убедились на семинарах, что нейросетевой рекоммендер лучше остальных. Поэтому я попробовал поэкспериментировать с ним - обучить рекоммендер как в статье *Neural Collaborative Filtering*, где мы обсуждали использование сконкатенированных слоев полносвязной нейросети и поэлементного (point-wise) умножения для аппроксимации скалярного произведения. К сожалению, ни вариант с обучением `user`-`item` эмбеддингов как в статье, ни вариант с обучением `prev_track`-`next_track` эмбеддингов не дал ожидаемого прироста. Сам ноутбук с обучением [в папке hw_report](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/hw_report/MyRecommender.ipynb). Данные, полученные таким образом лежат в `data/my_recs_custom_neumf.json`. Однако в окончательной версии все же получилось добиться значительного улучшения за счет эвристик с нейросетевым рекомендером (в котором скалярное произведение). Во-первых, для каждого пользователя я храню buffer из $k$ последних прослушанных треков с их `id` и временем. Таким образом, если последние несколько треков из буффера (например 2-3) оказались совсем неудачными - будем рекомендовать на основе лучшего из буффера. Чтобы это был не просто первый трек (т.к. такое может быть ведь он снова может попадать в буффер), будем следить за частотой рекомендаций треков из буффера и фильтровать дубликаты. Также из соображений здравого смысла - лучше использовать в качестве `fallback` `TopPop` рекоммендер (хотя в рамках 1000 сессий разницы не было).
 
+Ради интереса еще пробовал FFM в библиотеке `xlearn` - быстро завелось, но рекомендации были сиильно хуже.
+
 
 ## Результаты 
 
-Результаты A/B эксперимента лежат в папке [hw_report](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/hw_report/results_a_b.ipynb). Также привожу скрин [](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/hw_report/a_b_test.png)
+Таким образом, удалось добиться прироста в 55%. 
 
+Также привожу скрин. ![](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/hw_report/a_b_test.png) 
+
+Для нейросетевого рекоммендера NeuMF с его рекомендациями, который я пытался имплементировать прирост был около 7-13%, однако нижняя граница была -1-2%, поэтому я его включать не стал. 
 
 ## Детали 
 
+* Сам [отчет](https://github.com/inspired99/vk-recsys-itmo-spring-2023/tree/my-recommender/hw_report)
+
+* Результаты A/B эксперимента лежат в папке [hw_report](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/hw_report/results_a_b.ipynb). 
+
+* Рекоммендер `Upgraded` лежит в файле [upgraded.py](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/botify/botify/recommenders/ugraded.py). Также добавил изменений в `server.py` для того, чтобы завести буффер на всех юзеров.
+
+* Сгенерированные данные NeuralMF (которые по итогу не сработали) лежат в папке data, для [`user`-`item` эмбеддингов](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/botify/data/my_recs_custom_neumf1.0.json) и для ['prev_track'-'next_track' эмбеддингов](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/botify/data/my_recs_custom_neumf1.0.json).
+
+
 ## Запуск
 
-Сам запуск не поменялся, нужно 
+Сам запуск не поменялся, workflow остался тем же.
