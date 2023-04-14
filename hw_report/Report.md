@@ -20,9 +20,9 @@
 
 * Результаты A/B эксперимента лежат в папке [hw_report](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/hw_report/results_a_b.ipynb). 
 
-* Рекоммендер `Upgraded` лежит в файле [upgraded.py](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/botify/botify/recommenders/ugraded.py). Также добавил изменений в `server.py` для того, чтобы завести буффер на всех юзеров.
+* Рекоммендер `Upgraded` лежит в файле [upgraded.py](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/botify/botify/recommenders/ugraded.py). Также добавил изменений в `server.py` для того, чтобы завести буффер для каждого юзера.
 
-* Сгенерированные данные NeuralMF (которые по итогу не сработали) лежат в папке data, для [`user`-`item` эмбеддингов](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/botify/data/my_recs_custom_neumf1.0.json) и для ['prev_track'-'next_track' эмбеддингов](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/botify/data/my_recs_custom_neumf1.0.json).
+* Сгенерированные данные NeuralMF (которые по итогу не сработали) лежат в папке data, для [`user`-`item` эмбеддингов](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/botify/data/my_recs_custom_neumf1.0.json) и для [`prev_track`-`next_track` эмбеддингов](https://github.com/inspired99/vk-recsys-itmo-spring-2023/blob/my-recommender/botify/data/my_recs_custom_neumf1.0.json).
 
 
 ## Запуск
